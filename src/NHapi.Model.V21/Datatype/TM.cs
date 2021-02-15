@@ -1,38 +1,34 @@
-using System;
-
-using NHapi.Base.Model;
 namespace NHapi.Model.V21.Datatype
 {
-   /// <summary>
-   /// Summary description for TM.
-   /// </summary>
-   public class TM : NHapi.Base.Model.Primitive.TM
-   {
-	  /// <value>
-	  /// Return the version
-	  /// </value>
-	  /// <returns>2.1</returns>
-	  virtual public System.String Version
-	  {
-		 get
-		 {
-			return "2.1";
-		 }
-	  }
+    using NHapi.Base.Model;
 
-	  /// <summary>Construct the type</summary>
-	  /// <param name="theMessage">message to which this Type belongs</param>
-	  public TM(IMessage theMessage)
-	  		: base(theMessage)
-	  {
-	  }
+    /// <summary>
+    /// The HL7 TM data type.
+    /// </summary>
+    public class TM : Base.Model.Primitive.TM
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TM"/> class.
+        /// </summary>
+        /// <param name="theMessage">The message to which this type belongs.</param>
+        public TM(IMessage theMessage)
+              : base(theMessage)
+        {
+        }
 
-	  /// <summary>Construct the type</summary>
-	  /// <param name="theMessage">message to which this Type belongs</param>
-	  /// <param name="description">The description of this type</param>
-	  public TM(IMessage theMessage, string description)
-	  		: base(theMessage, description)
-	  {
-	  }
-   }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TM"/> class.
+        /// </summary>
+        /// <param name="theMessage">The message to which this type belongs.</param>
+        /// <param name="description">The description of this type.</param>
+        public TM(IMessage theMessage, string description)
+              : base(theMessage, description)
+        {
+        }
+
+        /// <summary>
+        /// Gets the version.
+        /// </summary>
+        public virtual string Version => Constants.VERSION;
+    }
 }

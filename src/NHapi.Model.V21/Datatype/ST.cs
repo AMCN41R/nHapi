@@ -1,38 +1,34 @@
-using System;
-
-using NHapi.Base.Model;
 namespace NHapi.Model.V21.Datatype
 {
-/// <summary>/// Summary description for ST.
-/// </summary>
-public class ST: AbstractPrimitive
-{
-/// <summary>Return the version
-/// <returns>2.1</returns>
-///</summary>
+    using NHapi.Base.Model;
 
-            virtual public System.String Version
-            {
-			    get
-			    {
-				    return "2.1";
-			    }
-		    }
-            
+    /// <summary>
+    /// The HL7 ST data type.
+    /// </summary>
+    public class ST : AbstractPrimitive
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ST"/> class.
+        /// </summary>
+        /// <param name="theMessage">The message to which this type belongs.</param>
+        public ST(IMessage theMessage)
+            : base(theMessage)
+        {
+        }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ST"/> class.
+        /// </summary>
+        /// <param name="message">The message to which this Type belongs.</param>
+        /// <param name="description">The description of this type.</param>
+        public ST(IMessage message, string description)
+            : base(message, description)
+        {
+        }
 
-                ///<summary>Construct the type
-                ///<param name="theMessage">message to which this Type belongs</param>
-                ///</summary>
-                public ST(IMessage theMessage):base(theMessage)
-                {}
-                
-
-
-                ///<summary>Construct the type
-                ///<param name="message">message to which this Type belongs</param>
-                ///<param name="description">The description of this type</param>
-                ///</summary>
-		        public ST(IMessage message, string description) : base(message,description)
-    	        {}
-                }}
+        /// <summary>
+        /// Gets the version.
+        /// </summary>
+        public virtual string Version => Constants.VERSION;
+    }
+}

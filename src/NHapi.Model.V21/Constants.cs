@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NHapi.Model.V21
+﻿namespace NHapi.Model.V21
 {
+    /// <summary>
+    /// Project constants.
+    /// </summary>
     public class Constants
     {
+        /// <summary>
+        /// The project version => 2.1.
+        /// </summary>
         public const string VERSION = "2.1";
     }
 }

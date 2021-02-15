@@ -1,213 +1,242 @@
-using NHapi.Base.Parser;
-using NHapi.Base;
-using NHapi.Base.Log;
-using System;
-using System.Collections.Generic;
-using NHapi.Model.V21.Segment;
-using NHapi.Model.V21.Datatype;
-using NHapi.Base.Model;
-
 namespace NHapi.Model.V21.Group
 {
-///<summary>
-///Represents the ORR_O02_PATIENT Group.  A Group is an ordered collection of message 
-/// segments that can repeat together or be optionally in/excluded together.
-/// This Group contains the following elements: 
-///<ol>
-///<li>0: PID (PATIENT IDENTIFICATION) optional </li>
-///<li>1: NTE (NOTES AND COMMENTS) optional repeating</li>
-///<li>2: ORR_O02_ORDER (a Group object) repeating</li>
-///</ol>
-///</summary>
-[Serializable]
-public class ORR_O02_PATIENT : AbstractGroup {
+    using System;
+    using System.Collections.Generic;
 
-	///<summary> 
-	/// Creates a new ORR_O02_PATIENT Group.
-	///</summary>
-	public ORR_O02_PATIENT(IGroup parent, IModelClassFactory factory) : base(parent, factory){
-	   try {
-	      this.add(typeof(PID), false, false);
-	      this.add(typeof(NTE), false, true);
-	      this.add(typeof(ORR_O02_ORDER), true, true);
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORR_O02_PATIENT - this is probably a bug in the source code generator.", e);
-	   }
-	}
+    using NHapi.Base;
+    using NHapi.Base.Log;
+    using NHapi.Base.Model;
+    using NHapi.Base.Parser;
+    using NHapi.Model.V21.Segment;
 
-	///<summary>
-	/// Returns PID (PATIENT IDENTIFICATION) - creates it if necessary
-	///</summary>
-	public PID PID { 
-get{
-	   PID ret = null;
-	   try {
-	      ret = (PID)this.GetStructure("PID");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
-	}
+    /// <summary>
+    /// Represents the ORR_O02_PATIENT Group. A Group is an ordered collection of message
+    /// segments that can repeat together or be optionally in/excluded together.
+    /// This Group contains the following elements...
+    /// <ol>
+    /// <li>0: PID (PATIENT IDENTIFICATION) optional</li>
+    /// <li>1: NTE (NOTES AND COMMENTS) optional repeating</li>
+    /// <li>2: ORR_O02_ORDER (a Group object) repeating</li>
+    /// </ol>
+    /// </summary>
+    [Serializable]
+    public class ORR_O02_PATIENT : AbstractGroup
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ORR_O02_PATIENT"/> class.
+        /// </summary>
+        /// <param name="parent">The parent group.</param>
+        /// <param name="factory">The model class factory.</param>
+        public ORR_O02_PATIENT(IGroup parent, IModelClassFactory factory)
+            : base(parent, factory)
+        {
+            try
+            {
+                add(typeof(PID), false, false);
+                add(typeof(NTE), false, true);
+                add(typeof(ORR_O02_ORDER), true, true);
+            }
+            catch (HL7Exception e)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error creating ORR_O02_PATIENT - this is probably a bug in the source code generator.", e);
+            }
+        }
 
-	///<summary>
-	/// Returns  first repetition of NTE (NOTES AND COMMENTS) - creates it if necessary
-	///</summary>
-	public NTE GetNTE() {
-	   NTE ret = null;
-	   try {
-	      ret = (NTE)this.GetStructure("NTE");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
+        /// <summary>
+        /// Gets the PID (PATIENT IDENTIFICATION) - creates it if necessary.
+        /// </summary>
+        public PID PID
+        {
+            get
+            {
+                try
+                {
+                    return (PID)GetStructure("PID");
+                }
+                catch (HL7Exception e)
+                {
+                    HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+                    throw new Exception("An unexpected error occurred", e);
+                }
+            }
+        }
 
-	///<summary>
-	///Returns a specific repetition of NTE
-	/// * (NOTES AND COMMENTS) - creates it if necessary
-	/// throws HL7Exception if the repetition requested is more than one 
-	///     greater than the number of existing repetitions.
-	///</summary>
-	public NTE GetNTE(int rep) { 
-	   return (NTE)this.GetStructure("NTE", rep);
-	}
+        /// <summary>
+        /// Gets the number of existing repetitions of NTE.
+        /// </summary>
+        public int NTERepetitionsUsed
+        {
+            get
+            {
+                try
+                {
+                    return GetAll("NTE").Length;
+                }
+                catch (HL7Exception e)
+                {
+                    var message = "Unexpected error accessing data - this is probably a bug in the source code generator.";
+                    HapiLogFactory.GetHapiLog(GetType()).Error(message, e);
+                    throw new Exception(message);
+                }
+            }
+        }
 
-	/** 
-	 * Returns the number of existing repetitions of NTE 
-	 */ 
-	public int NTERepetitionsUsed { 
-get{
-	    int reps = -1; 
-	    try { 
-	        reps = this.GetAll("NTE").Length; 
-	    } catch (HL7Exception e) { 
-	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
-	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
-	        throw new System.Exception(message);
-	    } 
-	    return reps; 
-	}
-	} 
+        /// <summary>
+        /// Gets the NTE results.
+        /// </summary>
+        public IEnumerable<NTE> NTEs
+        {
+            get
+            {
+                for (var rep = 0; rep < NTERepetitionsUsed; rep++)
+                {
+                    yield return (NTE)GetStructure("NTE", rep);
+                }
+            }
+        }
 
-	/** 
-	 * Enumerate over the NTE results 
-	 */ 
-	public IEnumerable<NTE> NTEs 
-	{ 
-		get
-		{
-			for (int rep = 0; rep < NTERepetitionsUsed; rep++)
-			{
-				yield return (NTE)this.GetStructure("NTE", rep);
-			}
-		}
-	}
+        /// <summary>
+        /// Gets the number of existing repetitions of ORR_O02_ORDER.
+        /// </summary>
+        public int ORDERRepetitionsUsed
+        {
+            get
+            {
+                try
+                {
+                    return GetAll("ORDER").Length;
+                }
+                catch (HL7Exception e)
+                {
+                    var message = "Unexpected error accessing data - this is probably a bug in the source code generator.";
+                    HapiLogFactory.GetHapiLog(GetType()).Error(message, e);
+                    throw new Exception(message);
+                }
+            }
+        }
 
-	///<summary>
-	///Adds a new NTE
-	///</summary>
-	public NTE AddNTE()
-	{
-		return this.AddStructure("NTE") as NTE;
-	}
+        /// <summary>
+        /// Gets the ORR_O02_ORDER results.
+        /// </summary>
+        public IEnumerable<ORR_O02_ORDER> ORDERs
+        {
+            get
+            {
+                for (var rep = 0; rep < ORDERRepetitionsUsed; rep++)
+                {
+                    yield return (ORR_O02_ORDER)GetStructure("ORDER", rep);
+                }
+            }
+        }
 
-	///<summary>
-	///Removes the given NTE
-	///</summary>
-	public void RemoveNTE(NTE toRemove)
-	{
-		this.RemoveStructure("NTE", toRemove);
-	}
+        /// <summary>
+        /// Returns the first repetition of NTE (NOTES AND COMMENTS) - creates it if necessary.
+        /// </summary>
+        /// <returns>An NTE segment.</returns>
+        public NTE GetNTE()
+        {
+            try
+            {
+                return (NTE)GetStructure("NTE");
+            }
+            catch (HL7Exception e)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+                throw new Exception("An unexpected error occurred", e);
+            }
+        }
 
-	///<summary>
-	///Removes the NTE at the given index
-	///</summary>
-	public void RemoveNTEAt(int index)
-	{
-		this.RemoveRepetition("NTE", index);
-	}
+        /// <summary>
+        /// Returns a specific repetition of NTE * (NOTES AND COMMENTS) - creates it if necessary.
+        /// </summary>
+        /// <param name="rep">The number of repetitions.</param>
+        /// <returns>An NTE segment.</returns>
+        /// <exception cref="HL7Exception">Thrown if the repetition requested is more than one greater than the number of existing repetitions.</exception>
+        public NTE GetNTE(int rep)
+        {
+            return (NTE)GetStructure("NTE", rep);
+        }
 
-	///<summary>
-	/// Returns  first repetition of ORR_O02_ORDER (a Group object) - creates it if necessary
-	///</summary>
-	public ORR_O02_ORDER GetORDER() {
-	   ORR_O02_ORDER ret = null;
-	   try {
-	      ret = (ORR_O02_ORDER)this.GetStructure("ORDER");
-	   } catch(HL7Exception e) {
-	      HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
-	      throw new System.Exception("An unexpected error ocurred",e);
-	   }
-	   return ret;
-	}
+        /// <summary>
+        /// Adds a new NTE.
+        /// </summary>
+        /// <returns>An NTE segment.</returns>
+        public NTE AddNTE()
+        {
+            return AddStructure("NTE") as NTE;
+        }
 
-	///<summary>
-	///Returns a specific repetition of ORR_O02_ORDER
-	/// * (a Group object) - creates it if necessary
-	/// throws HL7Exception if the repetition requested is more than one 
-	///     greater than the number of existing repetitions.
-	///</summary>
-	public ORR_O02_ORDER GetORDER(int rep) { 
-	   return (ORR_O02_ORDER)this.GetStructure("ORDER", rep);
-	}
+        /// <summary>
+        /// Removes the given NTE.
+        /// </summary>
+        /// <param name="toRemove">The segment to remove.</param>
+        public void RemoveNTE(NTE toRemove)
+        {
+            RemoveStructure("NTE", toRemove);
+        }
 
-	/** 
-	 * Returns the number of existing repetitions of ORR_O02_ORDER 
-	 */ 
-	public int ORDERRepetitionsUsed { 
-get{
-	    int reps = -1; 
-	    try { 
-	        reps = this.GetAll("ORDER").Length; 
-	    } catch (HL7Exception e) { 
-	        string message = "Unexpected error accessing data - this is probably a bug in the source code generator."; 
-	        HapiLogFactory.GetHapiLog(GetType()).Error(message, e); 
-	        throw new System.Exception(message);
-	    } 
-	    return reps; 
-	}
-	} 
+        /// <summary>
+        /// Removes the NTE at the given index.
+        /// </summary>
+        /// <param name="index">The index of the segment to remove.</param>
+        public void RemoveNTEAt(int index)
+        {
+            RemoveRepetition("NTE", index);
+        }
 
-	/** 
-	 * Enumerate over the ORR_O02_ORDER results 
-	 */ 
-	public IEnumerable<ORR_O02_ORDER> ORDERs 
-	{ 
-		get
-		{
-			for (int rep = 0; rep < ORDERRepetitionsUsed; rep++)
-			{
-				yield return (ORR_O02_ORDER)this.GetStructure("ORDER", rep);
-			}
-		}
-	}
+        /// <summary>
+        /// Returns the first repetition of ORR_O02_ORDER (a Group object) - creates it if necessary.
+        /// </summary>
+        /// <returns>An ORR_O02_ORDER group object.</returns>
+        public ORR_O02_ORDER GetORDER()
+        {
+            try
+            {
+                return (ORR_O02_ORDER)GetStructure("ORDER");
+            }
+            catch (HL7Exception e)
+            {
+                HapiLogFactory.GetHapiLog(GetType()).Error("Unexpected error accessing data - this is probably a bug in the source code generator.", e);
+                throw new Exception("An unexpected error occurred", e);
+            }
+        }
 
-	///<summary>
-	///Adds a new ORR_O02_ORDER
-	///</summary>
-	public ORR_O02_ORDER AddORDER()
-	{
-		return this.AddStructure("ORDER") as ORR_O02_ORDER;
-	}
+        /// <summary>
+        /// Returns a specific repetition of ORR_O02_ORDER * (a Group object) - creates it if necessary.
+        /// </summary>
+        /// <param name="rep">The number of repetitions.</param>
+        /// <returns>An ORR_O02_ORDER group object.</returns>
+        /// <exception cref="HL7Exception">Thrown if the repetition requested is more than one greater than the number of existing repetitions.</exception>
+        public ORR_O02_ORDER GetORDER(int rep)
+        {
+            return (ORR_O02_ORDER)GetStructure("ORDER", rep);
+        }
 
-	///<summary>
-	///Removes the given ORR_O02_ORDER
-	///</summary>
-	public void RemoveORDER(ORR_O02_ORDER toRemove)
-	{
-		this.RemoveStructure("ORDER", toRemove);
-	}
+        /// <summary>
+        /// Adds a new ORR_O02_ORDER.
+        /// </summary>
+        /// <returns>An ORR_O02_ORDER group object.</returns>
+        public ORR_O02_ORDER AddORDER()
+        {
+            return AddStructure("ORDER") as ORR_O02_ORDER;
+        }
 
-	///<summary>
-	///Removes the ORR_O02_ORDER at the given index
-	///</summary>
-	public void RemoveORDERAt(int index)
-	{
-		this.RemoveRepetition("ORDER", index);
-	}
+        /// <summary>
+        /// Removes the given ORR_O02_ORDER.
+        /// </summary>
+        /// <param name="toRemove">The segment to remove.</param>
+        public void RemoveORDER(ORR_O02_ORDER toRemove)
+        {
+            RemoveStructure("ORDER", toRemove);
+        }
 
-}
+        /// <summary>
+        /// Removes the ORR_O02_ORDER at the given index.
+        /// </summary>
+        /// <param name="index">The index of the segment to remove.</param>
+        public void RemoveORDERAt(int index)
+        {
+            RemoveRepetition("ORDER", index);
+        }
+    }
 }
